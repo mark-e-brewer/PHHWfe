@@ -1,9 +1,18 @@
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import { checkUser, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
+  const [users, setUsers] = useState(null);
   const { user } = useAuth();
+  useEffect(() => {
+    checkUser(user.uid).then((data) => {
+      setUsers(data);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log(users);
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
