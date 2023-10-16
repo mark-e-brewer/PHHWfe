@@ -18,5 +18,12 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: rgb(255, 255, 255);
+}
+
+.order-card-cont {
+  border: solid rgb(0, 0, 0) 3px;
+  width: 400px;
+  border-radius: 4px;
+  margin: 10px;
 }
