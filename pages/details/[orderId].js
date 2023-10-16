@@ -22,10 +22,12 @@ export default function OrderDetailsPage() {
 
   useEffect(() => {
     getThisOrder();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   useEffect(() => {
     getThisOrdersItems();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order]);
 
   let status = true;

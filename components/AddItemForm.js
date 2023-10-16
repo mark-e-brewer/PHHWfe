@@ -17,7 +17,6 @@ export default function AddItem({ itemArr, orderID }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formInput.item);
     postItemToOrder(orderID, formInput.item).then();
   };
 
