@@ -1,35 +1,36 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { checkUser, signOut } from '../utils/auth';
+import { useRouter } from 'next/router';
+import { checkUser } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
-  const [users, setUsers] = useState(null);
+  const router = useRouter();
+  const [currUser, setCurrUser] = useState(null);
   const { user } = useAuth();
   useEffect(() => {
     checkUser(user.uid).then((data) => {
-      setUsers(data);
+      setCurrUser(data);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(users);
+  console.warn(currUser);
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
-    </div>
+    <>
+      <h1 className="text-center">Pizza Hip-Hop & Wings</h1>
+      <div
+        className="text-center d-flex flex-column justify-content-center align-content-center"
+        style={{
+          height: '80vh',
+          padding: '30px',
+          maxWidth: '400px',
+          margin: '0 auto',
+        }}
+      >
+        <button type="button" className="view-order-btn mb-2" onClick={() => router.push('/view')}>View Orders</button>
+        <button type="button" className="create-order-btn mb-2" onClick={() => router.push('/create')}>Create Orders</button>
+        <button type="button" className="view-revenue-btn" onClick={() => router.push('/revenue')}>View Revenue</button>
+      </div>
+    </>
   );
 }
 
