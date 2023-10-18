@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes, { shape } from 'prop-types';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import { postItemToOrder } from '../API/Promises';
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
 
 export default function AddItem({ itemArr, orderID }) {
   const [formInput, setFormInput] = useState(initialState);
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +45,7 @@ export default function AddItem({ itemArr, orderID }) {
           </Form.Select>
         </FloatingLabel>
         <Button type="submit">Add</Button>
+        <Button type="button" onClick={() => router.push(`/item/new/${orderID}`)}>Create New Item</Button>
       </Form>
     </>
   );
