@@ -53,7 +53,7 @@ const getUserId = (uid) => new Promise((resolve, reject) => {
 });
 
 const deleteOrder = (id) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/order/${id}.json`, {
+  fetch(`${dbUrl}/order/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const deleteOrderItem = (orderId, itemId) => new Promise((resolve, reject) => {
 });
 
 const postOrder = (payload) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/order.json`, {
+  fetch(`${dbUrl}/order`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -85,12 +85,14 @@ const postOrder = (payload) => new Promise((resolve, reject) => {
     body: JSON.stringify(payload),
   })
     .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then((data) => {
+      resolve(data);
+    })
     .catch(reject);
 });
 
 const putOrder = (payload, orderId) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/order/${orderId}.json.json`, {
+  fetch(`${dbUrl}/order/${orderId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -126,6 +128,47 @@ const getAllItems = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const postItem = (payload) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/item`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      resolve(data);
+    })
+    .catch(reject);
+});
+
+const putItem = (payload, itemId) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/item/${itemId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getSingleItem = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/item/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
 export {
   getAllOrders,
   getSingleOrder,
@@ -137,4 +180,7 @@ export {
   putOrder,
   postItemToOrder,
   getAllItems,
+  postItem,
+  putItem,
+  getSingleItem,
 };
