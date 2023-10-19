@@ -30,7 +30,6 @@ export default function OrderForm({ obj, userID }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formInput.id) {
-      console.log(formInput);
       putOrder(formInput, obj.id).then(() => {
         router.push('/view');
       });

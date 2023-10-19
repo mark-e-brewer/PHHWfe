@@ -110,9 +110,17 @@ const postItemToOrder = (orderId, itemId) => new Promise((resolve, reject) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({}),
   })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then((response) => {
+      if (response.status === 204) {
+        resolve();
+      } else {
+        response.json()
+          .then((data) => reject(data))
+          .catch((error) => reject(error));
+      }
+    })
     .catch(reject);
 });
 
