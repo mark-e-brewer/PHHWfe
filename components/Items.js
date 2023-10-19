@@ -14,7 +14,7 @@ export default function ItemCard({ itemObj, onUpdate, orderId }) {
   return (
     <>
       <div className="d-flex justify-content-center m-2">
-        <button type="button" style={{ marginRight: '20px' }} onClick={() => router.push(`/item/new/edit/${itemObj.id}`)}>Edit</button>
+        <button type="button" style={{ marginRight: '20px' }} onClick={() => router.push(`/item/new/edit/${itemObj.id}--${orderId}`)}>Edit</button>
         <h4>{itemObj.name}:</h4>
         <h4> ${itemObj.price}.00</h4>
         <button type="button" style={{ marginLeft: '20px' }} onClick={deleteThisItem}>Delete</button>

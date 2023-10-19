@@ -28,7 +28,7 @@ export default function ItemForm({ itemObj, orderID }) {
     e.preventDefault();
     if (formInput.id) {
       putItem(formInput, itemObj.id).then(() => {
-        router.push('/view');
+        router.push(`/details/${orderID}`);
       });
     } else {
       postItem(formInput).then(() => {

@@ -19,7 +19,9 @@ export default function AddItem({ itemArr, orderID }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postItemToOrder(orderID, formInput.item).then();
+    postItemToOrder(orderID, formInput.item, {}).then(() => {
+      router.push(`/details/${orderID}`);
+    });
   };
 
   return (
@@ -34,6 +36,7 @@ export default function AddItem({ itemArr, orderID }) {
             onChange={handleChange}
             required
           >
+            <option value="" key="">Select an Item</option>
             {itemArr.map((obj) => (
               <option
                 key={obj.name}
@@ -44,8 +47,10 @@ export default function AddItem({ itemArr, orderID }) {
             ))}
           </Form.Select>
         </FloatingLabel>
-        <Button type="submit">Add</Button>
-        <Button type="button" onClick={() => router.push(`/item/new/${orderID}`)}>Create New Item</Button>
+        <div className="d-flex justify-content-between">
+          <Button type="submit">Add</Button>
+          <Button type="button" onClick={() => router.push(`/item/new/${orderID}`)}>Create New Item</Button>
+        </div>
       </Form>
     </>
   );
