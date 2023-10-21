@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
-import { getAllOrders } from '../API/Promises';
+import { getAllOpenOrders } from '../API/Promises';
 import OrderCard from '../components/OrderCard';
 
 export default function ViewOrdersPage() {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
-  const getAllTheOrders = () => {
-    getAllOrders().then(setOrders);
+  const getAllTheOpenOrders = () => {
+    getAllOpenOrders().then(setOrders);
   };
   console.warn(user);
   useEffect(() => {
-    getAllTheOrders()?.then((data) => {
+    getAllTheOpenOrders()?.then((data) => {
       setOrders(data);
     });
   }, []);
 
   return (
     <>
+      <h1 className="text-center">Open Orders</h1>
+      <hr />
       <div className="d-flex flex-column justify-content-center align-items-center">
-        {orders.map((obj) => <OrderCard orderObj={obj} onUpdate={getAllTheOrders} />)}
+        {orders.map((obj) => <OrderCard orderObj={obj} onUpdate={getAllTheOpenOrders} />)}
       </div>
     </>
   );
