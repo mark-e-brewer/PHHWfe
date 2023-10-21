@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Button } from 'react-bootstrap';
 import { getOrdersItems, getSingleOrder } from '../../API/Promises';
 import ItemCard from '../../components/Items';
 
@@ -34,7 +35,12 @@ export default function OrderDetailsPage() {
   if (order[0]?.status === true) {
     status = <h4>Status: Closed</h4>;
   } else if (order[0]?.status === false) {
-    status = <h4>Status: Open</h4>;
+    status = (
+      <div className="d-flex justify-content-center">
+        <Button variant="danger" onClick={() => router.push(`/close/${order[0]?.id}`)}>Close Order</Button>
+        <h4 className="open-status">Status: Open</h4>
+      </div>
+    );
   }
   return (
     <>

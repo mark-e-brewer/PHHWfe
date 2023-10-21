@@ -13,6 +13,32 @@ const getAllOrders = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getAllOpenOrders = () => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/ordersopen`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
+const getAllClosedOrders = () => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/ordersclosed`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
 const getSingleOrder = (id) => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/order/${id}`, {
     method: 'GET',
@@ -192,8 +218,38 @@ const postItemToOrderV2 = (payload, orderId) => new Promise((resolve, reject) =>
     .catch(reject);
 });
 
+const closeOrder = (payload, orderId) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/closeorder/${orderId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      resolve(data);
+    })
+    .catch(reject);
+});
+
+const getClosedOrdersSummary = () => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/closedordersummary`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
 export {
   getAllOrders,
+  getAllOpenOrders,
+  getAllClosedOrders,
   getSingleOrder,
   getOrdersItems,
   getUserId,
@@ -207,4 +263,6 @@ export {
   putItem,
   getSingleItem,
   postItemToOrderV2,
+  closeOrder,
+  getClosedOrdersSummary,
 };
